@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2020
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavigatorChallenge", "NavigatorChallenge\NavigatorChallenge.csproj", "{AC82D323-1B82-4036-AE4C-94120EF310D8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC82D323-1B82-4036-AE4C-94120EF310D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC82D323-1B82-4036-AE4C-94120EF310D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC82D323-1B82-4036-AE4C-94120EF310D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC82D323-1B82-4036-AE4C-94120EF310D8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {952829EC-7C47-40A2-A362-27A25341D0AF}
+	EndGlobalSection
+EndGlobal
