@@ -1,0 +1,132 @@
+﻿@model List<NavigatorChallenge.Models.TestOrder.Orders>
+
+@{
+    string currentTradingPartnerId = "";
+    int tradingPartnerCount = -1;
+}
+
+@for (int orderIndex = 0; orderIndex < Model.Count; orderIndex++)
+{
+    @if (Model[orderIndex].Order.Header.OrderHeader.TradingPartnerId != currentTradingPartnerId)
+    {
+        @if (currentTradingPartnerId != "")
+        {
+            tradingPartnerCount++;
+            int totalLineItemIndex = 0;
+            foreach (int tl in ViewData["totalLineItemsList"] as List<int>)
+            {
+                @if (totalLineItemIndex == tradingPartnerCount)
+                {
+                    <tr><td><br /><b> Trading Partner Total Line Items:</b> @tl<br /></td></tr>
+                }
+                totalLineItemIndex++;
+            }
+            int totalAmountIndex = 0;
+            foreach (decimal ta in ViewData["totalAmountList"] as List<decimal>)
+            {
+                @if (totalAmountIndex == tradingPartnerCount)
+                {
+                    <tr><td><b>Trading Partner Total Amount:</b> $@ta</td></tr>
+                }
+                totalAmountIndex++;
+            }
+        }
+
+        currentTradingPartnerId = Model[orderIndex].Order.Header.OrderHeader.TradingPartnerId;
+    }
+
+    @if (orderIndex > 0)
+    {
+        <br />
+    }
+
+    <table>
+        <thead>
+            <tr><th><h3>Order details for @currentTradingPartnerId</h3></th></tr>
+        </thead>
+        <tbody>
+            <tr><td><b>Purchase Order Number:</b> @Model[orderIndex].Order.Header.OrderHeader.PurchaseOrderNumber</td></tr>
+            <tr><td><b>Purchase Order Date:</b> @Model[orderIndex].Order.Header.OrderHeader.PurchaseOrderDate.ToShortDateString()</td></tr>
+            <tr>
+                <td>
+                    <br />
+                    <b>Shipping Address</b>
+                    <address>
+                        @Model[orderIndex].Order.Header.Address[0].AddressName<br />
+                        @Model[orderIndex].Order.Header.Address[0].Address1
+                        @Model[orderIndex].Order.Header.Address[0].Address2<br />
+                        @Model[orderIndex].Order.Header.Address[0].City
+                        @Model[orderIndex].Order.Header.Address[0].State
+                        @Model[orderIndex].Order.Header.Address[0].PostalCode
+                    </address>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Billing Address</b>
+                    <address>
+                        @Model[orderIndex].Order.Header.Address[1].AddressName<br />
+                        @Model[orderIndex].Order.Header.Address[1].Address1
+                        @Model[orderIndex].Order.Header.Address[1].Address2<br />
+                        @Model[orderIndex].Order.Header.Address[1].City
+                        @Model[orderIndex].Order.Header.Address[1].State
+                        @Model[orderIndex].Order.Header.Address[1].PostalCode
+                    </address>
+                </td>
+            </tr>
+            <tr><td><b>Carrier:</b> @Model[orderIndex].Order.Header.CarrierInformation.CarrierRouting</td></tr>
+            <tr>
+                <td>
+                    <br />
+                    <h4>Line Items</h4>
+                    <table style="width:650px">
+                        <tbody>
+                            <tr>
+                                <th style="width:6%">Item</th>
+                                <th style="width:24%">Buyer Part Number</th>
+                                <th style="width:24%">Vendor Part Number</th>
+                                <th style="width:28%">Consumer Package Code</th>
+                                <th style="width:11%; text-align:center">Quantity</th>
+                                <th style="width:7%; text-align:right">Price</th>
+                            </tr>
+                            @for (int lineItem = 0; lineItem < Model[orderIndex].Order.LineItem.Length; lineItem++)
+                            {
+                                <tr>
+                                    <td style="width:6%">@Model[orderIndex].Order.LineItem[lineItem].OrderLine.LineSequenceNumber</td>
+                                    <td style="width:24%">@Model[orderIndex].Order.LineItem[lineItem].OrderLine.BuyerPartNumber</td>
+                                    <td style="width:24%">@Model[orderIndex].Order.LineItem[lineItem].OrderLine.VendorPartNumber</td>
+                                    <td style="width:28%">@Model[orderIndex].Order.LineItem[lineItem].OrderLine.ConsumerPackageCode</td>
+                                    <td style="width:11%; text-align:center">@Model[orderIndex].Order.LineItem[lineItem].OrderLine.OrderQty</td>
+                                    <td style="width:7%; text-align:right">$@Model[orderIndex].Order.LineItem[lineItem].OrderLine.PurchasePrice</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr><td><br /><b>Order Total Line Items:</b> @Model[orderIndex].Order.Summary.TotalLineItemNumber</td></tr>
+            <tr><td><b>Order Total Amount:</b> $@Model[orderIndex].Order.Summary.TotalAmount</td></tr>
+        </tbody>
+    </table>
+}
+@{
+    tradingPartnerCount++;
+    int totalLineItemIndex2 = 0;
+    foreach (int tl in ViewData["totalLineItemsList"] as List<int>)
+    {
+        @if (totalLineItemIndex2 == tradingPartnerCount)
+        {
+            <tr><td><br /><b> Trading Partner Total Line Items:</b> @tl<br /></td></tr>
+        }
+        totalLineItemIndex2++;
+    }
+    int totalAmountIndex2 = 0;
+    foreach (decimal ta in ViewData["totalAmountList"] as List<decimal>)
+    {
+        @if (totalAmountIndex2 == tradingPartnerCount)
+        {
+            <tr><td><b>Trading Partner Total Amount:</b> $@ta</td></tr>
+        }
+        totalAmountIndex2++;
+    }
+}
